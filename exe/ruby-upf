@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'ruby/upf/config/config'
+require 'ruby/upf/pfcp/server'
+
+config = Ruby::Upf::Config.load
+
+node_ip = config.dig('node_id') || '127.0.0.1'
+bind    = config.dig('pfcp', 'bind') || '0.0.0.0'
+port    = config.dig('pfcp', 'port') || 8805
+
+server = Ruby::Upf::Pfcp::Server.new(bind: bind, node_ip: node_ip, port: port)
+server.run
